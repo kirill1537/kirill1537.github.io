@@ -1871,6 +1871,121 @@
 </script>
 
 
+<!-- LOGIN MODAL -->
+<div id="authGate" class="fixed inset-0 z-[99999] bg-white/90 backdrop-blur-md flex items-center justify-center">
+  <div class="w-full max-w-sm mx-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-gray-200 p-6 relative">
+      <div class="absolute -top-4 -right-4 text-4xl">🔒</div>
+      <h2 class="text-2xl font-semibold text-center mb-2">Вход</h2>
+      <p class="text-center text-gray-500 mb-6">Доступ только по паролю</p>
+
+      <form id="authForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Пароль</label>
+          <div class="relative">
+            <input id="authPass" type="password"
+                   class="w-full rounded-lg border border-gray-300 px-3 py-2 pr-12 focus:outline-none focus:ring-2 focus:ring-anahata/50"
+                   placeholder="••••••••" autocomplete="off">
+            <!-- стрелка для отправки -->
+            <button type="submit" aria-label="Войти"
+                    class="absolute inset-y-0 right-0 px-3 flex items-center text-anahata hover:opacity-80">
+              <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h12M13 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <p id="authError" class="hidden text-sm text-red-600">Неверный пароль</p>
+
+        <button type="submit"
+                class="w-full rounded-lg px-4 py-2.5 bg-anahata text-white font-medium hover:opacity-90 transition">
+          Войти
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const gate = document.getElementById('authGate');
+  const form = document.getElementById('authForm');
+  const passEl = document.getElementById('authPass');
+  const err = document.getElementById('authError');
+
+  const PASSWORD = "chakra2025"; // 🔑 поменяй на свой пароль
+
+  // Если уже входили
+  if (sessionStorage.getItem('auth-ok') === '1') {
+    gate.style.display = 'none';
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = passEl.value.trim();
+    if (val === PASSWORD) {
+      sessionStorage.setItem('auth-ok', '1');
+      gate.style.display = 'none';
+    } else {
+      err.classList.remove('hidden');
+      form.classList.add('animate-shake');
+      setTimeout(() => form.classList.remove('animate-shake'), 500);
+    }
+  });
+})();
+</script>
+
+<style>
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+.animate-shake { animation: shake 0.4s both; }
+</style>
+
+
+<script>
+(() => {
+  const gate = document.getElementById('authGate');
+  const form = document.getElementById('authForm');
+  const passEl = document.getElementById('authPass');
+  const err = document.getElementById('authError');
+
+  const PASSWORD = "chakra2025"; // 🔑 Задай тут свой пароль
+
+  // Если уже входили в этой сессии
+  if (sessionStorage.getItem('auth-ok') === '1') {
+    gate.style.display = 'none';
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = passEl.value.trim();
+    if (val === PASSWORD) {
+      sessionStorage.setItem('auth-ok', '1');
+      gate.style.display = 'none';
+    } else {
+      err.classList.remove('hidden');
+      form.classList.add('animate-shake');
+      setTimeout(() => form.classList.remove('animate-shake'), 500);
+    }
+  });
+})();
+</script>
+
+<style>
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+.animate-shake { animation: shake 0.4s both; }
+</style>
+
 
 </body>
 </html>
